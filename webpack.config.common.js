@@ -8,21 +8,32 @@ module.exports = {
         extensions: ['.js', '.ts']
     },
     module: {
-        loader: [
+        rules: [
             {
                 test: /\.ts$/,
-                loaders: ['awesome-typescript-loader', 
-                        'angular2-template-loader', 
-                        'angular2-router-loader']
+                // loaders: [
+                //     'awesome-typescript-loader', 
+                //     'angular2-template-loader', 
+                //     'angular-router-loader'
+                // ]
             },
             {
                 test: /\.html$/,
-                loader: 'html'
+                use: [{ loader: 'html-loader' }]
             },
             {
                 test: /\.css$/,
-                loader: 'raw'
+                use: [{ loader: 'raw-loader' }]
             }
-        ]
-    }
+        ],
+        exprContextCritical: false
+    },
+    plugins: [
+        new webpack.ContextReplacementPlugin(
+            // {\\|\/} part accounts for path separators in unix and windows
+            /angular{\\|\/}core{\\|\/}{esm{\\|\/}src|src}{\\|\/}linker/,
+            './src' // location of src
+        )
+    ]
+
 };
