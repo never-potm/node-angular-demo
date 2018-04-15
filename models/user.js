@@ -16,4 +16,4 @@ var userSchema = new Schema({
 userSchema.plugin(mongooseUniqueValidator);
 
 // To create a model from the above declared schema. It will create a collection named `users`
-module.exports = mongoose.model('User', schema);
+module.exports = mongoose.model('User', userSchema);
